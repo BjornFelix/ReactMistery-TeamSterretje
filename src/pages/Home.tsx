@@ -9,7 +9,7 @@ const Home = () => {
 
   const t = useTranslation("nl");
 
-  const { data, error, isLoading } = useFetch<User[]>(
+  const { data, error, isLoading, mutate } = useFetch<User[]>(
     `http://localhost:8080/api/users?_page=${page}}`,
     { initialValue: [] }
   );
@@ -32,6 +32,7 @@ const Home = () => {
       >
         Increase page
       </button>
+      <button onClick={() => mutate()}>Mutate</button>
       <h1>{t("userDetail.actions.hfhxkfj")}</h1>
       <h1>{t("home.title")}</h1>
       <h1>{t("userDetail.actions.save")}</h1>

@@ -6,6 +6,7 @@ interface FetchResult<T> {
   isLoading: boolean;
   data: T | null;
   error: Error | null;
+  mutate: () => void;
 }
 
 interface FetchOptions<T> {
@@ -19,6 +20,11 @@ export default function useFetch<T>(
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
+  const [trigger, setTrigger] = useState<number>(0);
+
+  const mutate = () => {
+    setTrigger((n) => n + 1);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,7 +50,7 @@ export default function useFetch<T>(
     });
 
     return () => controller.abort();
-  }, [url]);
+  }, [url, trigger]);
 
-  return { isLoading: isLoading, data: data, error: error };
+  return { isLoading: isLoading, data: data, error: error, mutate: mutate };
 }
