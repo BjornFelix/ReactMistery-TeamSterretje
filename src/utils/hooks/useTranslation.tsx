@@ -1,38 +1,43 @@
-import { useEffect, useState } from "react";
-
 const translations = {
   nl: {
     home: {
-      title: "Thuis",
+      title: 'Thuis',
+    },
+    userDetail: {
+      title: 'User Details',
+      actions: { save: 'Save' },
     },
   },
   en: {
     home: {
-      title: "Home",
+      title: 'Home',
     },
   },
 };
 
-export default function useTranslation(
-  language: "en" | "nl" = "en"
-): (key: string) => string {
-  return (key: string): string => {
-    const keys = key.split(".");
-    //call func to get keys
+function getChild(obj: Object, key: string): Object | string {
+  type objkeys = keyof typeof obj;
 
-    const lang = translations[language];
+  const key1 = key as objkeys;
+  console.log(obj[key1]);
 
-    type objkeys = keyof typeof lang;
-
-    for (let index = 0; index < keys.length; index++) {
-      const element = keys[index];
-    }
-
-    const key1 = keys[0] as objkeys;
-    console.log(lang[key1]);
-
-    return lang[keys[0]][keys[1]] as string;
-  };
+  return obj[key1];
 }
 
-function getChild() {}
+export default function useTranslation(
+  language: 'en' | 'nl' = 'en'
+): (key: string) => string {
+  return (key: string): string => {
+    const lang = translations[language];
+    const keys = key.split('.');
+
+    let translation: Object | string = lang;
+    for (let index = 0; index < keys.length; index++) {
+      const key = keys[index];
+
+      translation = getChild(translation, key);
+    }
+
+    return translation as string;
+  };
+}

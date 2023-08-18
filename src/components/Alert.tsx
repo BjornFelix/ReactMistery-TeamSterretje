@@ -10,7 +10,14 @@ interface Props {
   setShowAlert: (showAlert: boolean) => void;
 }
 
-const Alert: FC<Props> = ({ variant = 'warning', classes, header, children, dismissible, setShowAlert }) => {
+const Alert: FC<Props> = ({
+  variant = 'warning',
+  classes,
+  header,
+  children,
+  dismissible,
+  setShowAlert,
+}) => {
   useDocumentTitle('WELCOME', true);
 
   const toggShowAlert = () => {
@@ -19,12 +26,21 @@ const Alert: FC<Props> = ({ variant = 'warning', classes, header, children, dism
 
   return (
     <div
-      className={`alert alert-${variant ?? 'warning'} ${classes} ${dismissible && 'alert-dismissible'}`}
-      role="alert"
+      className={`alert alert-${variant ?? 'warning'} ${classes} ${
+        dismissible && 'alert-dismissible'
+      }`}
+      role='alert'
     >
-      {header ?? <h4 className="alert-heading">{header}</h4>}
+      {header ?? <h4 className='alert-heading'>{header}</h4>}
       {children}
-      {dismissible && <button type="button" className="btn-close" aria-label="Close" onClick={toggShowAlert}></button>}
+      {dismissible && (
+        <button
+          type='button'
+          className='btn-close'
+          aria-label='Close'
+          onClick={toggShowAlert}
+        ></button>
+      )}
     </div>
   );
 };
