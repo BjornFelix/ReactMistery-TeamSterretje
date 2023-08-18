@@ -39,8 +39,11 @@ export default function useTranslation(
     let translation: Object | string = lang;
     for (let index = 0; index < keys.length; index++) {
       const key = keys[index];
-
       translation = getChild(translation, key);
+    }
+
+    if (typeof translation === 'object') {
+      return 'unknown-key';
     }
 
     return translation as string;
