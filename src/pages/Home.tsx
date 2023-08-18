@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <>
-      <h1>{t('userDetail.actions.save')}</h1>
+      <h1>{t('userDetail.actions.hfhxkfj')}</h1>
       {!user && (
         <p>
           Please <a href='/login'>login</a>

@@ -18,10 +18,15 @@ const translations = {
 function getChild(obj: Object, key: string): Object | string {
   type objkeys = keyof typeof obj;
 
-  const key1 = key as objkeys;
-  console.log(obj[key1]);
-
-  return obj[key1];
+  const parsedKey = key as objkeys;
+  if (typeof obj === 'string') {
+    return obj;
+  }
+  const newObj = obj[parsedKey];
+  if (newObj === undefined) {
+    return 'unknown-key';
+  }
+  return newObj;
 }
 
 export default function useTranslation(
