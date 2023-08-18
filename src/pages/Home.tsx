@@ -21,10 +21,18 @@ const Home = () => {
   return (
     <>
       {isLoading && <p>Loading</p>}
-      {data &&
-        data.map((user) => {
-          return <p key={user.id}>{user.email}</p>;
-        })}
+      {data && (
+        <div data-testid="user-result">
+          {data.map((user) => {
+            return (
+              <p key={user.id} data-testid="user">
+                {user.email}
+              </p>
+            );
+          })}
+        </div>
+      )}
+
       <button
         onClick={() => {
           setPage((p) => p + 1);
