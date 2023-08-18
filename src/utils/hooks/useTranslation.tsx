@@ -1,40 +1,42 @@
 const translations = {
   nl: {
     home: {
-      title: 'Thuis',
+      title: "Thuis",
     },
     userDetail: {
-      title: 'User Details',
-      actions: { save: 'Save' },
+      title: "User Details",
+      actions: { save: "Save" },
     },
   },
   en: {
     home: {
-      title: 'Home',
+      title: "Home",
     },
   },
 };
+
+// const savedTranslation = new Set<string>(["key", "value"]);
 
 function getChild(obj: Object, key: string): Object | string {
   type objkeys = keyof typeof obj;
 
   const parsedKey = key as objkeys;
-  if (typeof obj === 'string') {
+  if (typeof obj === "string") {
     return obj;
   }
   const newObj = obj[parsedKey];
   if (newObj === undefined) {
-    return 'unknown-key';
+    return "unknown-key";
   }
   return newObj;
 }
 
 export default function useTranslation(
-  language: 'en' | 'nl' = 'en'
+  language: "en" | "nl" = "en"
 ): (key: string) => string {
   return (key: string): string => {
     const lang = translations[language];
-    const keys = key.split('.');
+    const keys = key.split(".");
 
     let translation: Object | string = lang;
     for (let index = 0; index < keys.length; index++) {
@@ -42,10 +44,10 @@ export default function useTranslation(
       translation = getChild(translation, key);
     }
 
-    if (typeof translation === 'object') {
-      return 'unknown-key';
+    if (typeof translation === "object") {
+      return "unknown-key";
     }
 
-    return translation as string;
+    return translation;
   };
 }
